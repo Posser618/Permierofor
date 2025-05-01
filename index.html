@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интернет-магазин</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lovelo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Общий стиль */
+        body {
+            font-family: 'Lovelo', sans-serif;
+            background-color: #f4f1ea;
+            color: #5b4636;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background: #6b4226;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .main {
+            padding: 20px;
+            text-align: center;
+        }
+        .phrase {
+            font-size: 28px;
+            font-style: italic;
+            margin: 20px 0;
+            color: #3c2415;
+        }
+        .chapters {
+            margin-top: 20px;
+        }
+        .chapter {
+            margin: 20px auto;
+            padding: 15px;
+            border: 2px solid #6b4226;
+            border-radius: 10px;
+            width: 80%;
+            background-color: #ffffff;
+            cursor: pointer;
+        }
+        .chapter:hover {
+            background-color: #f9f3e7;
+        }
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+        .buy-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #6b4226;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .buy-button:hover {
+            background-color: #8c5a2e;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Добро пожаловати на нашъ сайтъ</h1>
+    </header>
+    <main class="main">
+        <p class="phrase">Φως και Ήχος (Светъ и звукъ)</p>
+
+        <section class="chapters">
+            <h2>Главы для изученія:</h2>
+            <!-- Главы -->
+            <div class="chapter" onclick="openModal(1)">Глава I: Римъ, Понтій Пилатъ и імперская власть противъ пророческой истины</div>
+            <div class="chapter" onclick="openModal(2)">Глава II: Филиппъ Красивый, 1314 годъ. Сожженїе тампліеровъ, власть и долгъ.</div>
+            <div class="chapter" onclick="openModal(3)">Глава III: Макиавеллі — власть безъ морали и мораль безъ власти.</div>
+            <div class="chapter" onclick="openModal(4)">Глава IV: Иванъ Грозный, Англія, Петръ I и Петръ III — отъ восточной деспотїи къ западной дипломатїи.</div>
+            <div class="chapter" onclick="openModal(5)">Глава V: Екатерина II и США, Павелъ и Джорджъ Вашингтонъ — попытка диалога.</div>
+            <div class="chapter" onclick="openModal(6)">Глава VI: Последній дожъ Венеціи — конецъ старого міра.</div>
+            <div class="chapter" onclick="openModal(7)">Глава VII: Приходцы и Выходцы — отраженїе глобального движенїя капитала.</div>
+            <div class="chapter" onclick="openModal(8)">Глава VIII: Рокфеллеръ и прогрессъ — индустріализацїя какъ религія.</div>
+            <div class="chapter" onclick="openModal(9)">Глава IX: 1905 — японская побѣда какъ ударъ по імперіямъ.</div>
+            <div class="chapter" onclick="openModal(10)">Глава X: 1914 — созданїе ФРС и финансовая алхимія.</div>
+            <div class="chapter" onclick="openModal(11)">Глава XI: 1917 — революцїя какъ передѣлъ міра.</div>
+            <div class="chapter" onclick="openModal(12)">Глава XII: Вѣтхій Завѣтъ, Іезуиты, Богъ Ра побѣждаетъ Апопа — синтезъ религій.</div>
+        </section>
+    </main>
+
+    <!-- Модальное окно -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3 id="modal-title"></h3>
+            <p id="modal-description">Цена: 0.001 BTC</p>
+            <a id="modal-buy" class="buy-button" href="">Оплатити за BTC</a>
+        </div>
+    </div>
+
+    <script>
+        const chapters = [
+            "Глава I: Римъ, Понтій Пилатъ и імперская власть противъ пророческой истины",
+            "Глава II: Филиппъ Красивый, 1314 годъ. Сожженїе тампліеровъ, власть и долгъ.",
+            "Глава III: Макиавеллі — власть безъ морали и мораль безъ власти.",
+            "Глава IV: Иванъ Грозный, Англія, Петръ I и Петръ III — отъ восточной деспотїи къ западной дипломатїи.",
+            "Глава V: Екатерина II и США, Павелъ и Джорджъ Вашингтонъ — попытка диалога.",
+            "Глава VI: Последній дожъ Венеціи — конецъ старого міра.",
+            "Глава VII: Приходцы и Выходцы — отраженїе глобального движенїя капитала.",
+            "Глава VIII: Рокфеллеръ и прогрессъ — индустріализацїя какъ религія.",
+            "Глава IX: 1905 — японская побѣда какъ ударъ по імперіямъ.",
+            "Глава X: 1914 — созданїе ФРС и финансовая алхимія.",
+            "Глава XI: 1917 — революцїя какъ передѣлъ міра.",
+            "Глава XII: Вѣтхій Завѣтъ, Іезуиты, Богъ Ра побѣждаетъ Апопа — синтезъ религій."
+        ];
+
+        function openModal(index) {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modal-title');
+            const buyButton = document.getElementById('modal-buy');
+            
+            title.textContent = chapters[index - 1];
+            buyButton.href = `bitcoin:15Y2CNi3miHakHAJX3Mt76W1X4kzqzB1DQ?amount=0.001`;
+            
+            modal.style.display = "flex";
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = "none";
+        }
+    </script>
+</body>
+</html>
